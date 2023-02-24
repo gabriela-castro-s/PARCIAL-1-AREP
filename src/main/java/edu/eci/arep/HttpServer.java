@@ -6,9 +6,7 @@ import java.util.HashMap;
 
 public class HttpServer {
 
-    static HashMap<String , String> cache = new HashMap<>();
-    static HttpConnection conexionAPI = new HttpConnection();    static String route = "/HOME";
-    static String response ="";
+
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = null;
@@ -37,10 +35,12 @@ public class HttpServer {
             boolean firstLine = true;
             while ((inputLine = in.readLine()) != null) {
                 if (firstLine) {
-                    route = inputLine.split(" ")[1];
                     firstLine = false;
                 }
                 System.out.println("Received: " + inputLine);
+                if (inputLine.startsWith("GET")){
+                    System.out.println();
+                }
                 if (!in.ready()) {
                     break;
                 }
@@ -48,7 +48,7 @@ public class HttpServer {
 
             outputLine = ("HTTP/1.1 200 OK\r\n" +
                     "        Content-Type: text/html\r\n" +
-                     "\r\n"+
+                    "\r\n" +
                     "<!DOCTYPE html>\n" +
                     "<html>\n" +
                     "<head>\n" +
@@ -66,16 +66,14 @@ public class HttpServer {
                     "<div id=\"getrespmsg\"></div>\n" +
                     "\n" +
                     "<script>\n" +
-                    "            function loadGetMsg() {\n" +
-                    "                    let nameVar = document.getElementById(\"name\").value;\n" +
-                    "                    const xhttp = new XMLHttpRequest();\n" +
-                    "                    xhttp.onload = function() {\n" +
-                    "                    document.getElementById(\"getrespmsg\").innerHTML =\n" +
-                    "                    }\n" +
-                    "                    xhttp.open(\"GET\", \"/hello?name=\"+nameVar);\n" +
-                    "        xhttp.send();\n" +
-                    "        }\n" +
-                    "        </script>\n" +
+                    "function loadGetMsg(){\n" +
+                    "let name = document.getElementById(\"name\");\n" +
+                    "let url = \"get/?t=\" + name.value;\n" +
+                    "fetch (url, {method: 'GET'})\n" +
+                    ".then(x => x.text())\n" +
+                    ".then(y => document.getElementById(\"getrespmsg\").innerHTML = y);\n" +
+                    "}\n " +
+                    "</script>\n" +
                     "\n" +
                     "        <h1>Form with POST</h1>\n" +
                     "        <form action=\"/hellopost\">\n" +
@@ -103,41 +101,7 @@ public class HttpServer {
             clientSocket.close();
         }
         serverSocket.close();
-
-
-        }
-
-
-/*"HTTP/1.1 200 OK\r\n" +
-        "Content-Type: text/html\r\n" +
-        "\r\n" +
-        "<!DOCTYPE html>\n" +
-        "<html>\n" +
-        "<head>\n" +
-        "<title>Form Example</title>\n" +
-        "<meta charset=\"UTF-8\">\n" +
-        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-        "</head>\n" +
-        "<body>\n" +
-        "<form action=\"/get\">\n" +
-        "<center><label for=\"name\">Name:</label><br>\n</center>" +
-        "<center><input type=\"text\" id=\"name\" value=\"\"></center><br><br>\n" +
-        "<center><input type=\"button\" value=\"Submit\" onclick=\"loadGetMsg()\"></center><br><br>\n" +
-        "</form>\n" +
-        "<div id=\"getrespmsg\"></div>\n" +
-        "\n " +
-        "<script>\n" +
-        "function loadGetMsg(){\n" +
-        "let name = document.getElementById(\"name\");\n" +
-        "let url = \"get/?t=\" + name.value;\n" +
-        "fetch (url, {method: 'GET'})\n" +
-        ".then(x => x.text())\n" +
-        ".then(y => document.getElementById(\"getrespmsg\").innerHTML = y);\n" +
-        "}\n " +
-        "</script>\n" +
-        "</body>\n" +
-        "</html>";*/
-
+    }
 
 
 }
