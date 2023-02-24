@@ -78,26 +78,6 @@ public class HttpServer {
                     ".then(y => document.getElementById(\"getrespmsg\").innerHTML = y);\n" +
                     "}\n " +
                     "</script>\n" +
-
-                    /*"\n" +
-                    "        <h1>Form with POST</h1>\n" +
-                    "        <form action=\"/hellopost\">\n" +
-                    "        <label for=\"postname\">Name:</label><br>\n" +
-                    "        <input type=\"text\" id=\"postname\" name=\"name\" ><br><br>\n" +
-                    "        <input type=\"button\" value=\"Submit\" onclick=\"loadPostMsg(postname)\">\n" +
-                    "        </form>\n" +
-                    "\n" +
-                    "        <div id=\"postrespmsg\"></div>\n" +
-                    "\n" +
-                    "        <script>\n" +
-                    "        function loadPostMsg(name){\n" +
-                    "        let url = \"/hellopost?name=\" + name.value;\n" +
-                    "\n" +
-                    "        fetch (url, {method: 'POST'})\n" +
-                    "        .then(x => x.text())\n" +
-                    "        .then(y => document.getElementById(\"postrespmsg\").innerHTML = y);\n" +
-                    "        }\n" +
-                    "        </script>\n" +*/
                     "        </body>\n" +
                     "        </html>");
 
